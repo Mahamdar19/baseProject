@@ -8,6 +8,7 @@ Package manager - npm (^3.10.10)
 
 1. ```NodeJS```
 2. ```NPM```
+3. ```MONGODB```
 
 
 ### Installing
@@ -24,4 +25,4 @@ Package manager - npm (^3.10.10)
 
 ## Authors
 
-* **Techverx** - *Initial work* - Techverx
+* **Maham** - *Initial work* - Maham
