@@ -25,4 +25,4 @@ Package manager - npm (^3.10.10)
 
 ## Authors
 
-* **Maham** - *Initial work* - Maham
+* **Maham** - *Initial work* - Maham.akif@gems.techverx.com
