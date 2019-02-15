@@ -10,8 +10,8 @@
     "dev": "nodemon server.js"
   },
   "engines": {
-    "node": "^6.16.0",
-    "npm": "^3.10.10"
+    "node": "^10.10.0",
+    "npm": "^6.4.1"
   },
   "dependencies": {
     "async-parallel": "^1.2.3",
