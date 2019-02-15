@@ -16,15 +16,18 @@ const responseHandler =  require('../../util/responseHandler')
 
 const userService = require('./userService')
 
-module.exports = function () {
+module.exports = ()=> {
 
+    /**
+     * Function to get list of all users
+      */
 
-    appRoute.get('/',function (req,res) {
+    appRoute.get('/',(req,res)=> {
 
          try {
        
          let promise= userService.list()
-         promise.then(function(data){
+         promise.then((data)=>{
          console.log('data', data)
          responseHandler.success("List of users retrieved successfully",data,200,res)
          })
@@ -38,13 +41,17 @@ module.exports = function () {
 
     });
 
+
+    /**
+     * Function to get user by id
+      */
     
-    appRoute.get('/:id',function (req,res) {
+    appRoute.get('/:id',(req,res)=> {
 
         try{
          let userId= req.params.id
          let promise = userService.findById(userId)
-         promise.then(function(data){
+         promise.then((data)=>{
             responseHandler.success("user's data retrieved successfully",data,200,res)
          })    
 
@@ -56,9 +63,11 @@ module.exports = function () {
 
 });
 
-
+    /**
+     * Function to create user
+      */
     
-     appRoute.post('/',function (req,res) {
+     appRoute.post('/',(req,res)=>{
         try{        
 
             let responseBody = {}  
@@ -77,7 +86,7 @@ module.exports = function () {
             }
 
             let promise = userService.persist(responseBody)
-            promise.then(function(user){
+            promise.then((user)=>{
                 responseHandler.success("user created successfully",user,200,res)
             })
             
@@ -91,9 +100,11 @@ module.exports = function () {
 
  
 
-   
+   /**
+     * Function to delete user by id
+      */
 
-appRoute.delete('/:id',function (req,res) {
+appRoute.delete('/:id',(req,res) =>{
     
     try{
 
@@ -101,7 +112,7 @@ appRoute.delete('/:id',function (req,res) {
             console.log(userId)
             
             let promise= userService.remove(userId)
-            promise.then(function(err, result){
+            promise.then((err, result)=>{
                     console.log('errr',err)
                 if(!err.deletedCount) responseHandler.error("user not found",err,400,res);
                 responseHandler.success("user deleted successfully",[],200,res)
@@ -115,9 +126,12 @@ appRoute.delete('/:id',function (req,res) {
     }
 
 }); 
+    
+     /**
+     * Function to update user
+      */
 
-
-appRoute.put('/:id',function (req,res) {
+appRoute.put('/:id',(req,res)=> {
     try{        
         let responseBody = {}  
         /* validations*/
@@ -136,7 +150,7 @@ appRoute.put('/:id',function (req,res) {
 
             let userId= req.params.id
             let promise = userService.update(userId)
-            promise.then(function(user){
+            promise.then((user)=>{
                 responseHandler.success("user updated successfully",user,200,res)
             })
             
@@ -154,7 +168,7 @@ appRoute.put('/:id',function (req,res) {
 
 
 
-    appRoute.get('/signup',function (req,res) {
+    appRoute.get('/signup',(req,res) =>{
         // check params
 
         const user = new User();

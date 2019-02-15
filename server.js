@@ -35,10 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
   function expressValidator() {
     return ({
       customValidators: {
-        isArray: function (value) {
-          return Array.isArray(value);
-        },
-        isArrayOfStrings: function (value) {
+        isArray: (value) => Array.isArray(value),
+        isArrayOfStrings: (value) => {
           if (!Array.isArray(value)) {
             return false;
           }
@@ -46,7 +44,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
             return false;
           }
 
-          const res = value.every(v => (typeof v === 'string'));
+          const res = value.every((v) => (typeof v === 'string'));
 
           return res;
         }
@@ -57,7 +55,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
   app.use(expValidator(expressValidator()));
 
 
-app.all('*', function(req, res, next) {
+app.all('*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type,Accept, X-Requested-With, Session, Origin');
@@ -65,7 +63,7 @@ app.all('*', function(req, res, next) {
 });
 
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -74,7 +72,7 @@ app.use(function(req, res, next) {
 mongoose.connect('mongodb://localhost/test-db', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
+db.once('open', () => {
   //console.log("h");
 });
 
@@ -89,5 +87,5 @@ app.use('/api/v1',routes);
 app.options('*', cors());
 
 app.listen(PORT, HOST);
-console.log('Running on http://'+HOST+':'+PORT);
+console.log(`Running on http://${HOST}:${PORT}`);
 

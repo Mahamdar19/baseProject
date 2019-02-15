@@ -11,13 +11,18 @@ const responseHandler =  require('../../util/responseHandler')
 
 
 
-module.exports = function () {
+module.exports = ()=> {
 
-    appRoute.post('/:id',function (req,res) {
+
+    /**
+     * Function to create post
+      */
+
+    appRoute.post('/:id',(req,res)=>{
         try{    
             let userId= req.params.id
             let promise = User.findOne({_id:userId}).exec();
-            promise.then(function(data){
+            promise.then((data)=>{
     
                 let responseBody = {}  
                 responseBody = _.isEmpty(req.body) ? responseHandler.success("request body can not be  empty ",[],400,res)  : req.body 
@@ -46,23 +51,19 @@ module.exports = function () {
     });
     
 
-    //get post data by user id
-    appRoute.get('/:id',function (req,res) {
+    /**
+     * Function to get post data by user id
+      */
+
+    appRoute.get('/:id',(req,res)=> {
 
         try{
 
             let userId= req.params.id
             let promise = Post.find({userId:userId}).exec();
-            promise.then(function(data){
+            promise.then((data)=>{
             responseHandler.success("post data retrieved successfully",data,200,res)
          })
-
-         //try{
-           // let userId= req.params.id
-           // let promise = Post.findById({_id:userId}).exec();
-            //promise.then(function(data){
-            //   responseHandler.success("post data retrieved successfully",data,200,res)
-           // })
    
 
         }catch(exception){
@@ -73,13 +74,17 @@ module.exports = function () {
     });
 
 
-    appRoute.delete('/:id',function (req,res) {
+    /**
+     * Function to delete post
+      */
+
+    appRoute.delete('/:id',(req,res)=> {
     
         try{
     
                 let userId= req.params.id
-                let promise= Post.deleteOne({'_id':userId}).exec();
-                promise.then(function(err, result){
+                let promise= Post.deleteOne({userId:userId}).exec();
+                promise.then((err, result)=>{
                         console.log('errr',err)
                     if(!err.deletedCount) responseHandler.error("post not found",err,400,res);
                     responseHandler.success("post deleted successfully",[],200,res)
